@@ -1,0 +1,10 @@
+Django
+dj-rest-auth
+djangorestframework
+djangorestframework-jwt
+gunicorn
+psycopg
+markdown
+django-filter
+django-allauth
+django-cors-headers

@@ -1,0 +1,2 @@
+Hacer un backend de autenticacion en el que pueda guardar notas y estas unicamente tengan su usuario
+para que se puedan crear las notas el usuario debe iniciar sesion en el back y que las notas se guarden con su respectivo usuario

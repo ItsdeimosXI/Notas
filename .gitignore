@@ -1,0 +1,6 @@
+data
+data/bddata
+.vscode
+.env
+src/django/app/__pycache__
+src/django/ApiNoteUser/__pycache__
