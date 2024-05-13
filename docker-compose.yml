@@ -1,6 +1,6 @@
 services:
   django:
-    image: backend:0.1
+    image: backend:0.2
     build:
       context: ./config/django-image
     volumes:

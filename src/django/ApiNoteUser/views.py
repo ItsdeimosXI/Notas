@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.models import Group, User
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import permissions, viewsets
 from .serializer import NoteSerializer
 from .serializer import GroupSerializer, UserSerializer
@@ -10,7 +9,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """

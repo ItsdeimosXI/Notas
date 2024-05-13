@@ -1,7 +1,7 @@
 Django
 dj-rest-auth
 djangorestframework
-djangorestframework-jwt
+djangorestframework-simplejwt
 gunicorn
 psycopg
 markdown
