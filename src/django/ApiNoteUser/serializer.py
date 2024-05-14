@@ -43,7 +43,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "La contraseña no son las mismas"})
         return attrs
     #En esta funcion cuando se llama al metodo de creacion ya esta todo ok, por lo tanto guarda la contraseña y guarda el usuario
-    def crear(self, validated_data):
+    def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
