@@ -13,6 +13,9 @@ class NoteViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    def get_queryset(self):
+        return Note.objects.filter(user=self.request.user)
+
 
 
 
