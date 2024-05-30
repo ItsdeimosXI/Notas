@@ -1,43 +1,59 @@
 <template>
-    <form>
-        <!-- Email input -->
-        <div data-mdb-input-init class="form-outline mb-4">
-          <input type="text" id="form2Example1" class="form-control" v-model="user"/>
-          <label class="form-label" for="form2Example1" >Usuario</label>
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
         </div>
-      
-        <!-- Password input -->
-        <div data-mdb-input-init class="form-outline mb-4">
-          <input type="password" id="form2Example2" class="form-control" v-model="password" {{store.password}}/>
-          <label class="form-label" for="form2Example2">Password</label>
-        </div>
-      
-        <!-- 2 column grid layout for inline styling -->
-        <div class="row mb-4">
-          <div class="col d-flex justify-content-center">
-            <!-- Checkbox -->
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-              <label class="form-check-label" for="form2Example31"> Remember me </label>
-            </div>
-          </div>
-      
-          <div class="col">
-            <!-- Simple link -->
-            <a href="#!">Forgot password?</a>
-          </div>
-        </div>
-      
-        <!-- Submit button -->
-        <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4" {{ store.Login()}} >Sign in</button>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form>
 
-    </form>
+              <p class="lead fw-normal mb-0 me-3">Sign in</p>
+
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Nombre de usuario" v-model="user" />
+              <label class="form-label" for="form3Example3" >Username</label>
+            </div>
+  
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-outline mb-3">
+              <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Ingrese su contraseña" v-model="password" />
+              <label class="form-label" for="form3Example4">Contraseña</label>
+            </div>
+  
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem" @click="LoginUser">Login</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
+                <router-link class="link-danger" to="/register">Register</router-link> </p>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+    </section>
 </template>
 
 <script setup lang="ts">
-import { UseAuthStore } from '@/stores/store';
 import { ref } from 'vue';
+import UserAuth from '@/stores/store';
+import router from '@/router';
+const UseAuth = UserAuth()
 const user = ref('')
 const password = ref('')
-const store = UseAuthStore
+const LoginUser = async () => {
+  const login = await UseAuth.login(user.value, password.value)
+  if (login == false ){
+    window.alert('Usuario o contraseña incorrectos')
+  }else{
+    window.alert('Bienvenido')
+    router.push('/note')
+  }
+}
 </script>

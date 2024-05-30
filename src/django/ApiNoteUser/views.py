@@ -5,11 +5,19 @@ from .serializer import NoteSerializer
 from .serializer import GroupSerializer, UserSerializer, RegisterSerializer
 from .models import Note
 # Create your views here.
+
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
-     
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -17,7 +25,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-
 
 class GroupViewSet(viewsets.ModelViewSet):
     """

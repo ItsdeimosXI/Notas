@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Note
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-
+from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -15,11 +15,13 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
         
-class NoteSerializer(serializers.HyperlinkedModelSerializer):
+class NoteSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Note
         fields = ['nombre','descripcion', 'user']
-        
+        read_only_fields = ['creado']
+
 class RegisterSerializer(serializers.ModelSerializer):
     #aqui estoy afirmando que el atributo sea un correo y que es requerido y debe de ser unico en toda la base de datos
     email = serializers.EmailField(

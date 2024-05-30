@@ -5,7 +5,7 @@ from .views import UserViewSet, GroupViewSet, NoteViewSet, RegisteredView
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
-router.register(r'note', NoteViewSet)
+router.register(r'notes', NoteViewSet)
 
 
 # Wire up our API using automatic URL routing.

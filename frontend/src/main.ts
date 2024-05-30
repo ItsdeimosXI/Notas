@@ -6,9 +6,10 @@ import router from './router'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import custom_axios from '@/axios'
 import axios from 'axios'
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
-app.use(axios)
+app.use(axios)  
 app.mount('#app')

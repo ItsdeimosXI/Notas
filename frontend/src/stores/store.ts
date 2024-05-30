@@ -1,49 +1,63 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
-import axios from 'axios'
-export const UseAuthStore = defineStore('Auth', {
-  state: () =>
-  (
-    {
-      authUser: null
-    }
+import axios from "axios";
+import { defineStore } from "pinia";
 
-  ),
-  getters: {
-    user: (state) => state.authUser
+const UserAuth = defineStore("userAuth", {
+  state: () => {
+    return {
+      token: null,
+      error: null
+    }
+    
   },
   actions: {
-    async GetToken(){
-      await axios.get("api/token")
-    },
-    async GetUser()
-    async Login(username: string, password:string): Promise<boolean> {
-      try {
-        const res = await fetch('http://127.0.0.1:8000/api/api-auth/login/', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: username,
-            password: password
-          })
+    async login(username: string, password:string) {
+      const response: any = await axios.post('/api/token/', {
+        username: username,
+        password: password,
+      }).then(response => {
+        this.token = response.data.access
+        return this.token
+      }).catch(error => {
+        this.error = error
+        return this.error
         })
-        const response = await res.json()
-        if ('non_field_errors' in response) {
-            this.error = "Login failed"
-            return false
-            }else{
-              this.Token = response.data.key
-              return true
-            }
+    },
+    async register( username: string, first_name: string, last_name: string,email: string,password: string, password2: string,) {
+      const response: any = await axios.post('/api/register/', {
+        email: email,
+        password: password,
+        password2: password2,
+        username: username,
+        first_name: first_name,
+        last_name: last_name,
+    }).catch(error => {
+      return error
+    })
+    },
+    async GetNote(){
+      const response = await axios.get('/api/note/', {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      }).catch(error => {
+        console.log(error);
+      }).then(response => {
+        return response
+      })
+    },
+    async CreateNote(content: string){
+      const response = await axios.post('/api/note/',
+      { content: content },
+      {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        
       }
-      catch(error){
-        this.error = "Login failed"
-        return false
-      }
-      }
+      }).catch(error => {
+        console.log(error);
+      })
+    }
   }
-
 })
+
+export default UserAuth
