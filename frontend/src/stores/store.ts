@@ -35,15 +35,17 @@ const UserAuth = defineStore("userAuth", {
     })
     },
     async GetNote(){
-      const response = await axios.get('/api/note/', {
+      const response = await axios.get('/api/notes/', {
         headers: {
           Authorization: `Bearer ${this.token}`,
         },
+      }).then(response => {
+        return response.data
       }).catch(error => {
         console.log(error);
-      }).then(response => {
-        return response
+        return []
       })
+      return response
     },
     async CreateNote(content: string){
       const response = await axios.post('/api/note/',
