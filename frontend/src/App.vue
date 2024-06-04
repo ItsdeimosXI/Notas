@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import UserAuth from './stores/store';
+import { computed } from 'vue';
+const store = UserAuth()
+const router = useRouter()
+const logout = () => {
+  store.logout()
+  router.push('/login')
+}
+const IsAuth = computed(() => !!store.token)
 </script>
 
 <template>
@@ -15,8 +24,11 @@ import { RouterLink, RouterView } from 'vue-router'
         <li class="nav-item">
           <RouterLink class="nav-link active" aria-current="page" to="/">Home</RouterLink>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!IsAuth">
           <RouterLink class="nav-link" to="/login">login</RouterLink>
+        </li>
+        <li class="nav-item" v-if="IsAuth">
+          <button @click="logout" class="nav-link" type="submit">Logout</button>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" to="/note">Note</RouterLink>

@@ -24,8 +24,10 @@
                 placeholder="Ingrese su contraseña" v-model="password" />
               <label class="form-label" for="form3Example4">Contraseña</label>
             </div>
-  
-  
+            <div>
+              <input v-model="rememberMe" id="rememberMe" type="checkbox">
+              <label for="rememberMe">Remember me</label>
+            </div>
             <div class="text-center text-lg-start mt-4 pt-2">
               <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem" @click="LoginUser">Login</button>
@@ -47,8 +49,9 @@ import router from '@/router';
 const UseAuth = UserAuth()
 const user = ref('')
 const password = ref('')
+const rememberMe = ref(false)
 const LoginUser = async () => {
-  const login = await UseAuth.login(user.value, password.value)
+  const login = await UseAuth.login(user.value, password.value, rememberMe.value)
   if (login == false ){
     window.alert('Usuario o contraseña incorrectos')
   }else{

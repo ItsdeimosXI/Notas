@@ -4,23 +4,33 @@ import { defineStore } from "pinia";
 const UserAuth = defineStore("userAuth", {
   state: () => {
     return {
-      token: null,
+      token: localStorage.getItem('token') || null,
       error: null
     }
     
   },
   actions: {
-    async login(username: string, password:string) {
+    async login(username: string, password:string, rememberMe: boolean) {
       const response: any = await axios.post('/api/token/', {
         username: username,
         password: password,
       }).then(response => {
         this.token = response.data.access
+        if (rememberMe) {
+          localStorage.setItem('token', this.token)
+        } else {
+          sessionStorage.setItem('token', this.token)
+        }
         return this.token
       }).catch(error => {
-        this.error = error
-        return this.error
+        this.error = error.message
+        return null
         })
+    },
+    logout() {
+      this.token = null;
+      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
     },
     async register( username: string, first_name: string, last_name: string,email: string,password: string, password2: string,) {
       const response: any = await axios.post('/api/register/', {
@@ -47,13 +57,12 @@ const UserAuth = defineStore("userAuth", {
       })
       return response
     },
-    async CreateNote(content: string){
-      const response = await axios.post('/api/note/',
-      { content: content },
+    async CreateNote(nombre: string, descripcion: string){
+      const response = await axios.post('/api/notes/',
+      { nombre: nombre, descripcion: descripcion },
       {
         headers: {
           Authorization: `Bearer ${this.token}`,
-        
       }
       }).catch(error => {
         console.log(error);

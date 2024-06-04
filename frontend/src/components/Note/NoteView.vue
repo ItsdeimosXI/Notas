@@ -1,10 +1,15 @@
 <template>
+    <router-link :to="{ name: 'note-create' }">
+        <button class="btn btn-success">
+            <i class="fa-solid fa-check"> </i>Crear nueva nota
+        </button>
+    </router-link>
   <div class="container" v-for="note in notes" :key="note.id">
   <div class="container bootstrap snippets bootdeys" >
     <div class="row">
         <div class="col-md-4 col-sm-6 content-card">
             <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
+                <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">  
                     <div class="content">
                         <h6 class="category">{{note.nombre}}</h6>
                         <p class="description">{{ note.descripcion }} </p>
@@ -28,7 +33,6 @@ const notes:Ref<Array<Inotes>>  = ref([])
   try {
     const fetchedNotes = await store.GetNote()
     notes.value = fetchedNotes
-    console.log(notes.value)
   } catch (error) {
     console.error("Failed to fetch notes:", error)
   }

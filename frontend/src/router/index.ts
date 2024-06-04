@@ -35,6 +35,7 @@ const router = createRouter({
         requiresAuth: false
       }
     },
+    
     {
       path: '/register',
       name: 'register',
