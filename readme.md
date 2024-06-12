@@ -38,7 +38,7 @@ Esta es una aplicación web para gestionar notas personales, desarrollada con Vu
 
    ```bash
    git clone https://github.com/tuusuario/vue-django-notes-app.git
-   cd vue-django-notes-app/backend
+   cd vue-django-notes-app
 2. Archivo .env:
   Crear un archivo .env en el directorio backend con las variables de entorno necesarias (puedes usar .env.example como plantilla).
 
