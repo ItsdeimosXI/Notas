@@ -78,27 +78,26 @@ Esta es una aplicación web para gestionar notas personales, desarrollada con Vu
 ## **Cerrar Sesión**
   - Haz clic en el botón "Logout" para cerrar sesión.
 
-
-
 ### Estructura del Proyecto
-vue-django-notes-app/
-├── backend/
-│   ├── manage.py
-│   ├── notes/
-│   ├── requirements.txt
-│   └── ...
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   ├── .gitignore
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── ...
-└── README.md
-
-
-### Licencia
+   ```
+      vue-django-notes-app/
+      ├── backend/
+      │   ├── manage.py
+      │   ├── notes/
+      │   ├── requirements.txt
+      │   └── ...
+      ├── frontend/
+      │   ├── public/
+      │   ├── src/
+      │   ├── .gitignore
+      │   ├── package.json
+      │   ├── tsconfig.json
+      │   └── ...
+      └── README.md
+```
+## Licencia
 Este proyecto está licenciado bajo la MIT License.
+
 
 
 
