@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import home from '../components/Home.vue'
 import LoginVue from '../components/Login/LoginVue.vue'
 import RegisterVue from '../components/Login/RegisterVue.vue'
 import NoteVue from '../components/Note/NoteView.vue'
@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: home,
       meta: {
         requiresAuth: false
       }

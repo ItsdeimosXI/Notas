@@ -67,7 +67,19 @@ const UserAuth = defineStore("userAuth", {
       }).catch(error => {
         console.log(error);
       })
-    }
+    },
+    async DeleteNote(id: number){
+      const response = await axios.delete('/api/notes/' + id, {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      }).then(response => {
+        return response.data
+      }).catch(error => {
+        console.log(error);
+        return []
+      })
+  },
   }
 })
 

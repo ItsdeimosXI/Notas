@@ -19,7 +19,7 @@ class NoteSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Note
-        fields = ['nombre','descripcion', 'user']
+        fields = ['id','nombre','descripcion', 'user']
         read_only_fields = ['creado']
 
 class RegisterSerializer(serializers.ModelSerializer):

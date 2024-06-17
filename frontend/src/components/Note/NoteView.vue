@@ -1,31 +1,30 @@
 <template>
-    <router-link :to="{ name: 'note-create' }">
-        <button class="btn btn-success">
-            <i class="fa-solid fa-check"> </i>Crear nueva nota
-        </button>
-    </router-link>
-  <div class="container" v-for="note in notes" :key="note.id">
-  <div class="container bootstrap snippets bootdeys" >
-    <div class="row">
-        <div class="col-md-4 col-sm-6 content-card">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">  
-                    <div class="content">
-                        <h6 class="category">{{note.nombre}}</h6>
-                        <p class="description">{{ note.descripcion }} </p>
-                    </div>
-                </div> <!-- end card -->
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container fluid >
+  <v-row>
+    <v-col v-for="note in notes" :key="note.id"  cols="12" sm="6" md="4" lg="3" >
+    <v-card>
+        <v-card-tittle> {{ note.nombre }} </v-card-tittle>
+        <v-card-text> {{ note.descripcion }} </v-card-text>
+        <v-card-actions>
+            <v-btn color="red" @click="eliminar(note.id)">Eliminar</v-btn>
+        
+        </v-card-actions>
+    </v-card>
+</v-col>
+</v-row>
+  </v-container>
+  <router-link :to="{ name: 'note-create' }">
+    <v-btn color="blue" class="sticky">
+        <i class="fa-solid fa-check"></i> Crear nueva nota
+    </v-btn>
+</router-link>
 </template>
 
 <script setup lang="ts">
 import UserAuth from '@/stores/store'
 import { ref, type Ref, onMounted } from 'vue'
 import Inotes from '@/interfaces/Inotes'
+import router from '@/router';
 const store = UserAuth()
 
 const notes:Ref<Array<Inotes>>  = ref([])
@@ -37,142 +36,23 @@ const notes:Ref<Array<Inotes>>  = ref([])
     console.error("Failed to fetch notes:", error)
   }
 })
+const eliminar = async (id: number) => {
+  try {
+    await store.DeleteNote(id)
+    notes.value = notes.value.filter((note) => note.id !== id)
+  } catch (error) {
+    console.error("Fallo al eliminar la nota: ", error)
+  }
+  router.push({ name: 'note' })
+}
 </script>
-
 <style scoped>
-body{margin-top:20px;}
-
-.card-big-shadow {
-    max-width: 320px;
-    position: relative;
-}
-
-.coloured-cards .card {
-    margin-top: 30px;
-}
-
-.card[data-radius="none"] {
-    border-radius: 0px;
-}
-.card {
-    border-radius: 8px;
-    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
-    background-color: #FFFFFF;
-    color: #252422;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-
-.card[data-background="image"] .title, .card[data-background="image"] .stats, .card[data-background="image"] .category, .card[data-background="image"] .description, .card[data-background="image"] .content, .card[data-background="image"] .card-footer, .card[data-background="image"] small, .card[data-background="image"] .content a, .card[data-background="color"] .title, .card[data-background="color"] .stats, .card[data-background="color"] .category, .card[data-background="color"] .description, .card[data-background="color"] .content, .card[data-background="color"] .card-footer, .card[data-background="color"] small, .card[data-background="color"] .content a {
-    color: #FFFFFF;
-}
-.card.card-just-text .content {
-    padding: 50px 65px;
-    text-align: center;
-}
-.card .content {
-    padding: 20px 20px 10px 20px;
-}
-.card[data-color="blue"] .category {
-    color: #7a9e9f;
-}
-
-.card .category, .card .label {
-    font-size: 14px;
-    margin-bottom: 0px;
-}
-.card-big-shadow:before {
-    background-image: url("http://static.tumblr.com/i21wc39/coTmrkw40/shadow.png");
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    bottom: -12%;
-    content: "";
-    display: block;
-    left: -12%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 0;
-}
-h4, .h4 {
-    font-size: 1.5em;
-    font-weight: 600;
-    line-height: 1.2em;
-}
-h6, .h6 {
-    font-size: 0.9em;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.card .description {
-    font-size: 16px;
-    color: #66615b;
-}
-.content-card{
-    margin-top:30px;    
-}
-a:hover, a:focus {
-    text-decoration: none;
-}
-
-/*======== COLORS ===========*/
-.card[data-color="blue"] {
-    background: #b8d8d8;
-}
-.card[data-color="blue"] .description {
-    color: #506568;
-}
-
-.card[data-color="green"] {
-    background: #d5e5a3;
-}
-.card[data-color="green"] .description {
-    color: #60773d;
-}
-.card[data-color="green"] .category {
-    color: #92ac56;
-}
-
-.card[data-color="yellow"] {
-    background: #ffe28c;
-}
-.card[data-color="yellow"] .description {
-    color: #b25825;
-}
-.card[data-color="yellow"] .category {
-    color: #d88715;
-}
-
-.card[data-color="brown"] {
-    background: #d6c1ab;
-}
-.card[data-color="brown"] .description {
-    color: #75442e;
-}
-.card[data-color="brown"] .category {
-    color: #a47e65;
-}
-
-.card[data-color="purple"] {
-    background: #baa9ba;
-}
-.card[data-color="purple"] .description {
-    color: #3a283d;
-}
-.card[data-color="purple"] .category {
-    color: #5a283d;
-}
-
-.card[data-color="orange"] {
-    background: #ff8f5e;
-}
-.card[data-color="orange"] .description {
-    color: #772510;
-}
-.card[data-color="orange"] .category {
-    color: #e95e37;
-}
+.sticky{
+    position: sticky;
+    position: -webkit-sticky;;
+    top: 500px;
+    bottom: 30px;
+    left: auto;
+    z-index: 1000;
+  }
 </style>
