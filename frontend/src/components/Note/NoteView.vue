@@ -48,6 +48,7 @@ const eliminar = async (id: number) => {
 </script>
 <style scoped>
 .sticky{
+    display: flex;
     position: fixed;
     top: auto;
     bottom: 30px;

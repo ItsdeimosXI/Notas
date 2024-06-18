@@ -1,9 +1,11 @@
 <template>
-
+    <v-app-bar-nav-icon @click="drawer = !drawer" icon="fa fa-bars"></v-app-bar-nav-icon>
     <v-navigation-drawer
       theme="dark"
       permanent
+      v-model="drawer"
     >
+    <v-list-item prepend-icon="fa fa-bars" @click="drawer = !drawer"> </v-list-item>
     <v-list nav>
       <v-list-item prepend-icon="fa fa-home" tittle="Home" value="Home" to="/">
         Home
@@ -17,13 +19,15 @@
     </v-list>
   </v-navigation-drawer>
 
+
 </template>
 <script setup lang="ts">
 import {useRouter } from 'vue-router'
 import UserAuth from '../stores/store';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 const store = UserAuth()
 const router = useRouter()
+const drawer = ref(false)
 const logout = () => {
   store.logout()  
   router.push('/login')

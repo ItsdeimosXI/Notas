@@ -1,9 +1,10 @@
 <template>
-  <v-app>
-    <Navbar />
+  <v-app class="d-flex">
+    <Navbar/>
     <v-main>
-      <RouterView />
+    <RouterView />
     </v-main>
+
   </v-app>
 </template>
 

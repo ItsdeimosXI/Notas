@@ -10,20 +10,15 @@
           <v-form> 
             <v-text-field label="Usuario" v-model="user" prepend-icon="fa fa-user"></v-text-field>
             <v-text-field label="Contraseña" v-model="password" prepend-icon="fa fa-lock" type="password"></v-text-field>
-            <v-checkbox
-            type="checkbox"
-            color="black"
-            v-model="rememberMe"
-            label="Recordar?"
-            required
-          ></v-checkbox>
-            
+            <input type="checkbox" v-model="rememberMe" icon="fa fa-check">Recordarme?</input>
           </v-form>
+
       </v-card-text>
       <v-card-actions>
+
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="LoginUser">Login</v-btn>
-        <v-btn color="primary" to="register">Register</v-btn>
+        <v-btn color="primary" to="register">Registrarse</v-btn>
       </v-card-actions>
       </v-card>
 </v-flex>
