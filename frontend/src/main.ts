@@ -2,11 +2,13 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-//descargadas
+// Bootstrap y Popper
 import 'bootstrap'
 import '@popperjs/core/dist/umd/popper.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
+// FontAwesome
 import '@fortawesome/fontawesome-free/css/all.min.css'
+// Axios y custom_axios
 import axios from 'axios'
 import custom_axios from './axios'
 import UserAuth from './stores/store'
@@ -21,8 +23,8 @@ const vuetify = createVuetify({
 })
 const app = createApp(App)
 app.use(createPinia())
-app.use(router, custom_axios)
-app.use(axios)  
+app.use(router)
+app.use(custom_axios)  
 app.use(vuetify)
 app.mount('#app')
 //token
