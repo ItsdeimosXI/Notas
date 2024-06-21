@@ -16,14 +16,14 @@
                           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
                             <label class="form-label" for="form3Example1c">Tu Nombre de usuario</label>
-                            <input type="text" id="form3Example1c" class="form-control" v-model="username" />
+                            <input type="text" id="form3Example1" class="form-control" v-model="username" />
                           </div>
                         </div>
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
                             <label class="form-label" for="form3Example1c">Tu nombre</label>
-                            <input type="text" id="form3Example1c" class="form-control" v-model="first_name" />
+                            <input type="text" id="form3Examplec" class="form-control" v-model="first_name" />
                           </div>
                         </div>
                         <div class="d-flex flex-row align-items-center mb-4">
@@ -89,18 +89,23 @@ const last_name = ref('')
 const first_name = ref('')
 const username = ref('')
 const email = ref('')
-const feed = ref('')
 const Auth = store()
 const Register = async () =>{
   const register = await Auth.register(username.value,first_name.value,last_name.value,email.value,password.value,password2.value)
-  if (register  == false ){
-    return window.alert("Error al registrarte")
-  } else {
-    return window.alert("Exito al registrarte")
+  if(Auth.errores !== null){
+    window.alert("Faltan datos para completar el registro")
+  }else{
+    window.alert("registro correcto")
     router.push('/login')
   }
 }
-
+const UserRules = [{
+  required: (value: any) => !!value || 'Este campo es requerido'
+}, (value: string | any[]) => {
+  if (value.length < 4) return true
+  return 'El nombre de usuario debe contener al menos 4 caracteres'
+}
+]
 </script>
 
 <style scoped>

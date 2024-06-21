@@ -1,10 +1,8 @@
 <template>
 
-<v-layaout align-center justify-center>
-  <v-flex xs12 sm8 md4> 
     <v-card class="elevation-12">
       <v-toolbar dark color="primary">
-        <v-toolbar-tittle> Login </v-toolbar-tittle>
+        Login
       </v-toolbar>
       <v-card-text>
           <v-form> 
@@ -21,8 +19,8 @@
         <v-btn color="primary" to="register">Registrarse</v-btn>
       </v-card-actions>
       </v-card>
-</v-flex>
-</v-layaout>
+
+
 
 </template>
 
@@ -36,11 +34,11 @@ const password = ref('')
 const rememberMe = ref(false)
 const LoginUser = async () => {
   const login = await UseAuth.login(user.value, password.value, rememberMe.value)
-  if (login == false ){
-    window.alert('Usuario o contraseña incorrectos')
-  }else{
-    window.alert('Bienvenido')
+  if (UseAuth.errores == null ) {
+    window.alert("Login correcto")
     router.push('/note')
+  } else {
+    window.alert(UseAuth.mensaje)
   }
 }
 </script>

@@ -5,7 +5,8 @@ const UserAuth = defineStore("userAuth", {
   state: () => {
     return {
       token: localStorage.getItem('token') || null,
-      error: null
+      errores: null,
+      mensaje: []
     }
     
   },
@@ -15,6 +16,8 @@ const UserAuth = defineStore("userAuth", {
         username: username,
         password: password,
       }).then(response => {
+        this.errores = null
+        this.mensaje = []
         this.token = response.data.access
         if (rememberMe) {
           localStorage.setItem('token', this.token)
@@ -22,9 +25,11 @@ const UserAuth = defineStore("userAuth", {
           sessionStorage.setItem('token', this.token)
         }
         return this.token
-      }).catch(error => {
-        this.error = error.message
-        return null
+      }).catch( (error) =>{
+        if (error.response.status > 400){
+          this.errores = error.response.status
+          this.mensaje = error.response.data.detail
+        }
         })
     },
     logout() {
@@ -40,8 +45,13 @@ const UserAuth = defineStore("userAuth", {
         username: username,
         first_name: first_name,
         last_name: last_name,
-    }).catch(error => {
-      return error
+    }).catch( (error) => {
+      if (error.response.status >= 400){
+        this.errores = error.response.status
+        this.mensaje = error.response.data
+        console.log(this.errores)
+        console.log(error.response.data)
+    }
     })
     },
     async GetNote(){
@@ -51,9 +61,12 @@ const UserAuth = defineStore("userAuth", {
         },
       }).then(response => {
         return response.data
-      }).catch(error => {
-        console.log(error);
-        return []
+      }).catch( (error)=> {
+        if (error.response.status > 400){
+         this.errores = error.response.status
+          console.log(this.errores)
+        }
+        
       })
       return response
     },
