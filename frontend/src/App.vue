@@ -1,5 +1,5 @@
 <template>
-  <v-app class="d-flex">
+  <v-app>
     <Navbar/>
     <v-main>
     <RouterView />
