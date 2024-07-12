@@ -8,7 +8,6 @@ const UserAuth = defineStore("userAuth", {
       errores: null,
       mensaje: []
     }
-    
   },
   actions: {
     async login(username: string, password:string, rememberMe: boolean) {
@@ -26,7 +25,7 @@ const UserAuth = defineStore("userAuth", {
         }
         return this.token
       }).catch( (error) =>{
-        if (error.response.status > 400){
+        if (error.response.status >= 400){
           this.errores = error.response.status
           this.mensaje = error.response.data.detail
         }
